@@ -19,5 +19,6 @@ composer require loganstellway/wp-gutenberg-google-maps
 
 ## Blocks
 
-:--- | :---
-**Map** | Embed a Google map with confirable dimensions and multiple markers.
+| Name    | Description                                                         |
+| :------ | :------------------------------------------------------------------ |
+| **Map** | Embed a Google map with confirable dimensions and multiple markers. |
