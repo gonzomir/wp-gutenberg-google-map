@@ -1,0 +1,55 @@
+{
+  "name": "loganstellway/google-map",
+  "category": "embed",
+  "attributes": {
+    "apiKey": {
+      "type": "string"
+    },
+    "zoom": {
+      "type": "number",
+      "default": 14
+    },
+    "lat": {
+      "type": "number",
+      "default": 0
+    },
+    "lng": {
+      "type": "number",
+      "default": 0
+    },
+    "x": {
+      "type": "number",
+      "default": 2
+    },
+    "y": {
+      "type": "number",
+      "default": 1
+    },
+    "minHeight": {
+      "type": "number",
+      "default": 100
+    },
+    "addMinHeight": {
+      "type": "boolean",
+      "default": false
+    },
+    "minHeightUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "address": {
+      "type": "string"
+    },
+    "markers": {
+      "type": "array",
+      "default": [
+        {
+          "lat": 0,
+          "lng": 0,
+          "address": "",
+          "description": ""
+        }
+      ]
+    }
+  }
+}
