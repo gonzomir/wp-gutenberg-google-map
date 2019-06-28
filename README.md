@@ -14,7 +14,7 @@ Adds Google maps blocks to Gutenberg
 **Install with Composer**
 
 ```
-composer require loganstellway/wp-gutenberg-google-maps
+composer require loganstellway/wp-gutenberg-google-map
 ```
 
 ## Blocks
