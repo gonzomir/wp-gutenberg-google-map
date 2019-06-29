@@ -42,14 +42,10 @@
     },
     "markers": {
       "type": "array",
-      "default": [
-        {
-          "lat": 0,
-          "lng": 0,
-          "address": "",
-          "description": ""
-        }
-      ]
+      "default": [],
+      "items": {
+        "type": "object"
+      }
     }
   }
 }

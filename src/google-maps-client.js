@@ -14,13 +14,13 @@ import { Fragment } from "@wordpress/element";
 import { getCenter, getRatio, Marker } from "./blocks/utils";
 
 (() => {
-  [].forEach.call(
-    document.querySelectorAll("script.wp-block-loganstellway-google-map"),
-    map => {
+  document
+    .querySelectorAll("script[type='text/wp-block-loganstellway-google-map']")
+    .forEach(map => {
       const attributes = JSON.parse(map.innerHTML);
       const { apiKey, x, y, lat, lng, zoom, markers, minHeight } = attributes;
 
-      if (apiKey && x && y && lat && lng && zoom && markers && markers.length) {
+      if (apiKey && x && y && lat && lng && zoom) {
         const content = (
           <Fragment>
             <div
@@ -29,7 +29,15 @@ import { getCenter, getRatio, Marker } from "./blocks/utils";
                 minHeight: minHeight
               }}
             />
-            <div className="map-container">
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%"
+              }}
+            >
               <GoogleMapReact
                 defaultCenter={getCenter(attributes)}
                 defaultZoom={zoom}
@@ -54,9 +62,9 @@ import { getCenter, getRatio, Marker } from "./blocks/utils";
 
         const el = document.createElement("div");
         el.className = map.className;
+        el.style.position = "relative";
         map.parentNode.replaceChild(el, map);
         ReactDOM.render(content, el);
       }
-    }
-  );
+    });
 })();

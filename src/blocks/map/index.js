@@ -7,7 +7,7 @@ import { __ } from "@wordpress/i18n";
  * Internal dependencies
  */
 import edit from "./edit";
-import save from "./save";
+// import save from "./save";
 import metadata from "./block.json";
 import { MapIcon } from "../utils";
 
@@ -20,7 +20,7 @@ const settings = {
   keywords: [__("google"), __("map")],
   attributes,
   edit,
-  save
+  save: () => null
 };
 
 export { metadata, name, settings };

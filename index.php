@@ -19,15 +19,20 @@ defined( 'ABSPATH' ) or die();
 if ( ! class_exists('\LoganStellway\Gutenberg\Google\Maps\Blocks') ) {
     class Blocks
     {
+        /**
+         * Constructor
+         */
         public function __construct() {
-            add_action( 'init', array( $this, 'registerBlock' ) );
+            add_action( 'init', function() {
+                $this->registerAssets();
+                $this->registerGoogleMapBlock();
+            });
         }
 
         /**
-         * Initialize 
+         * Register assets
          */
-        public function registerBlock()
-        {
+        public function registerAssets() {
             // Editor Script
             wp_register_script(
                 'loganstellway-google-maps-editor',
@@ -37,12 +42,12 @@ if ( ! class_exists('\LoganStellway\Gutenberg\Google\Maps\Blocks') ) {
                 true
             );
 
-            // Clinet Script
+            // Client Script
             wp_register_script(
                 'loganstellway-google-maps-client',
-                plugins_url( 'build/frontend.js', __FILE__ ),
+                plugins_url( 'build/google-maps-client.js', __FILE__ ),
                 array('wp-element'),
-                filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.js' ),
+                filemtime( plugin_dir_path( __FILE__ ) . 'build/google-maps-client.js' ),
                 true
             );
 
@@ -53,7 +58,7 @@ if ( ! class_exists('\LoganStellway\Gutenberg\Google\Maps\Blocks') ) {
                 array( 'wp-edit-blocks' ),
                 filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )
             );
-        
+
             // Client Style
             wp_register_style(
                 'loganstellway-google-maps-client',
@@ -61,13 +66,27 @@ if ( ! class_exists('\LoganStellway\Gutenberg\Google\Maps\Blocks') ) {
                 array( 'wp-edit-blocks' ),
                 filemtime( plugin_dir_path( __FILE__ ) . 'build/client.css' )
             );
-        
+        }
+
+        /**
+         * Initialize 
+         */
+        public function registerGoogleMapBlock()
+        {
+            // Get JSON data
+            $data = file_get_contents(__DIR__ . '/src/blocks/map/block.json');
+            $data = $data ? json_decode($data, true) : [];
+
             // Register block
-            register_block_type( 'loganstellway/google-maps', array(
+            register_block_type( 'loganstellway/google-map', array(
                 'style' => 'loganstellway-google-maps-client',
                 'script' => 'loganstellway-google-maps-client',
                 'editor_style' => 'loganstellway-google-maps-editor',
                 'editor_script' => 'loganstellway-google-maps-editor',
+                'render_callback' => function($a) {
+                    return '<script type="text/wp-block-loganstellway-google-map">' . json_encode($a) . '</script>';
+                },
+                'attributes' => isset($data['attributes']) ? $data['attributes'] : [],
             ) );
         }
     }

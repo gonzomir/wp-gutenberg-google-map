@@ -25,7 +25,7 @@ module.exports = {
     ...defaultConfig.entry,
     editor: ["./src/editor.scss"],
     client: ["./src/client.scss"],
-    frontend: ["./src/frontend.js"]
+    "google-maps-client": ["./src/google-maps-client.js"]
   },
   devtool: production ? false : "source-map", // any 'source-map'-like devtool is possible
   module: {
